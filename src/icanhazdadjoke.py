@@ -1,27 +1,23 @@
-from requests import get
+from requests import Session
 
 class Icanhazdadjoke:
 	def __init__(self) -> None:
 		self.api = "https://icanhazdadjoke.com"
-		self.headers = {
-			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
-			"accept": "application/json"
+		self.session = Session()
+		self.session.headers = {
+			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
+			"Accept": "application/json"
 		}
 	
 	def get_random_dad_joke(self) -> dict:
-		return get(
-			f"{self.api}/",
-			headers=self.headers).json()
+		return self.session.get(self.api).json()
 	
 	def get_random_dad_joke_as_slack(self) -> dict:
-		return get(
-			f"{self.api}/slack",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/slack").json()
 	
 	def get_dad_joke(self, joke_id: str) -> dict:
-		return get(
-			f"{self.api}/j/{joke_id}",
-			headers=self.headers).json()
+		return self.session.get(f"{self.api}/j/{joke_id}").json()
 	
 	def get_dad_joke_as_image(self, joke_id: str) -> str:
 		return f"{self.api}/j/{joke_id}.png"
@@ -31,6 +27,5 @@ class Icanhazdadjoke:
 			page: int = 1,
 			limit: int = 20, # max = 30
 			term: str = "list all jokes") -> dict:
-		return get(
-			f"{self.api}/search?page={page}&limit={limit}&term={term}",
-			headers=self.headers).json()
+		return self.session.get(
+			f"{self.api}/search?page={page}&limit={limit}&term={term}").json()
