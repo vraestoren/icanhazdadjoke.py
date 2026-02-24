@@ -3,8 +3,9 @@ Web-API for [icanhazdadjoke.com](https://icanhazdadjoke.com) website which is on
 
 ## Example
 ```python
-import icanhazdadjoke
-icanhazdadjoke = icanhazdadjoke.Icanhazdadjoke()
-random_dad_joke = icanhazdadjoke.get_random_dad_joke()
+from icanhazdadjoke import Icanhazdadjoke
+
+ichdadjoke = Icanhazdadjoke()
+random_dad_joke = ichdadjoke.get_random_dad_joke()
 print(random_dad_joke)
 ```
